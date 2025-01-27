@@ -1,0 +1,33 @@
+name: Greetings
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: "Message that will be displayed on users' first issue"
+          pr-message: "Message that will be displayed on users' first pull request"
+
+  algorithm_test:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:             
+      - uses: algorithmiaio/test-algo-action@v0.1.1-rc6
+        with:
+          # your typical Algorithmia API key
+          regular_api_key: <YOUR_API_KEY>
+          # The API address for the Algorithmia Cluster you wish to connect to
+          api_address: <YOUR_API_ADDRESS> # optional, default is https://api.algorithmia.com
+          # The name of the Algorithm you want to test
+          algorithm_name: <YOUR_ALGORITHM_NAME>
+          # A list of Json Case objects that describe the desired test cases
+          cases: <YOUR_TEST_CASES>
